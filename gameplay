@@ -1,0 +1,281 @@
+/*   
+	This program has a player walk through a haunted house, working to fight a monster who also resides in the space.
+*/
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <cmath>
+#include <iomanip>
+#include <ctime>
+
+using namespace std;
+void playerInfo(string& playerName, double& playerHealth);
+void printData(string userName);
+void monsterBattle(double& monsterHealth, double& attackAmount, double& userHealth, double& monsterAttack);
+int monsterBattle(float monsterHealth, int attackAmount, int userHealth);
+void printSomething(char monsterThing);
+
+int main()
+{
+	//seed random
+	srand(time(NULL));
+
+	string userName;
+	int choice;
+	double monsterHealth, userHealth, monsterAttack;
+	int loop;
+	char monsterAh, A, B;
+	char C, D, E;
+	char F, G, gamePlay;
+	double attackAmount;
+	loop = 0;
+	choice = 1;
+	playerInfo(userName, userHealth);
+
+
+
+	//allows user to play again if they choose 
+	while (choice == 1)
+	{
+
+		printData(userName);
+		//gives monster random amount of health points 
+		monsterHealth = rand() % 600 + (100 * loop);
+		monsterAttack = monsterHealth / 2;
+		//loop starts at 0, goes to 25, and a loop gets added everytime one is played
+		for (loop = 0; loop <= 25; loop++)
+		{
+			//this monsterRoom variable allows the monster move between different rooms in the house.
+			int monsterRoom = rand() % 6;
+			cout << "\n";
+			cout << "A. Move into the dining room \n";
+			cout << "B. Walk towards the study hall \n";
+			cout << "C. Walk up the stairs \n";
+			cout << "D. Check out the kitchen \n";
+			cout << "E. Look into the foyer \n";
+			cout << "F. Delve into the basement \n";
+			cout << "G. Disco into the den \n";
+			cout << "\n";
+			cin >> gamePlay;
+			gamePlay = toupper(gamePlay);
+			cout << "\n";
+
+
+			//this allows user to choose what their gameplay option is
+			switch (gamePlay)
+			{
+			case 'A':
+				if (monsterRoom == 0)
+				{
+					printSomething(monsterAh);
+					cout << "You've found the monster! How many life points would you like to use to attack? \n";
+					cin >> attackAmount;
+					monsterBattle(monsterHealth, attackAmount, userHealth, monsterAttack);
+					monsterBattle(monsterHealth, attackAmount, userHealth);
+				}
+				else
+				{
+					cout << "The view out of the stained glass windows is beautiful, you look around but all is quiet \n";
+				}
+				break;
+
+			case 'B':
+				if (monsterRoom == 1)
+				{
+
+					printSomething(monsterAh);
+					cout << "The beast is in the corner snarling, red eyed. How many of your life points will you use to attack? \n";
+					cin >> attackAmount;
+					monsterBattle(monsterHealth, attackAmount, userHealth, monsterAttack);
+					monsterBattle(monsterHealth, attackAmount, userHealth);
+				}
+				else
+				{
+					cout << "All is quiet in this study room, it's time to move on. \n";
+				}
+				break;
+
+			case 'C':
+				if (monsterRoom == 2)
+				{
+					printSomething(monsterAh);
+					cout << "As you walk up the stairs you hear the growl of the creature you came for. How much power will you use to attack him? \n";
+					cin >> attackAmount;
+					monsterBattle(monsterHealth, attackAmount, userHealth, monsterAttack);
+					monsterBattle(monsterHealth, attackAmount, userHealth);
+				}
+				else
+				{
+					cout << "The stairs are safe, it's time to continue your journey. \n";
+				}
+				break;
+
+			case 'D':
+				if (monsterRoom == 3)
+				{
+					printSomething(monsterAh);
+					cout << "The smell of burning flesh fills your nostrils as you enter the kitchen. The monster is here! Choose your attack points! \n";
+					cin >> attackAmount;
+					monsterBattle(monsterHealth, attackAmount, userHealth, monsterAttack);
+					monsterBattle(monsterHealth, attackAmount, userHealth);
+				}
+				else
+				{
+					cout << "All is clear, and the fresh smell of a homemade pie fills the air. It's time to head to the next room \n";
+				}
+				break;
+
+			case 'E':
+				if (monsterRoom == 4)
+				{
+					printSomething(monsterAh);
+					cout << "As you walk into the foyer the monster is lounging near the window- how many attack points will you use? \n";
+					cin >> attackAmount;
+					monsterBattle(monsterHealth, attackAmount, userHealth, monsterAttack);
+					monsterBattle(monsterHealth, attackAmount, userHealth);
+				}
+				else
+				{
+					cout << "The room is well lit and cozy, but you see no sign of the creature. \n";
+				}
+				break;
+
+			case 'F':
+				if (monsterRoom == 5)
+				{
+					printSomething(monsterAh);
+					cout << "As you step into the basement, the light flickers. But, not long enough for you to notice the shadow approaching you. How many points will you use to attack? \n";
+					cin >> attackAmount;
+					monsterBattle(monsterHealth, attackAmount, userHealth, monsterAttack);
+					monsterBattle(monsterHealth, attackAmount, userHealth);
+				}
+				else
+				{
+					cout << "The basement light flickers, but nothing is hiding in the shadows here. It's time to check the rest of the house. \n";
+				}
+				break;
+
+			case 'G':
+				if (monsterRoom == 6)
+				{
+					printSomething(monsterAh);
+					cout << "Groovy baby- you've found the gastly beast! How many attack points will you use? \n ";
+					cout << " \n";
+					cin >> attackAmount;
+					monsterBattle(monsterHealth, attackAmount, userHealth, monsterAttack);
+					monsterBattle(monsterHealth, attackAmount, userHealth);
+				}
+				else
+				{
+					cout << "The den is lined with fur carpet, but nothing else stands out about this space. Let's disco to another room \n";
+				}
+				break;
+			default:
+				cout << "Please enter a valid game play choice. \n";
+				break;
+
+			}
+
+		}
+		cout << "Would you like to play again? Yes = 1. No = 2. \n";
+		cin >> choice;
+	}
+	return 0;
+}
+
+//precondition  outputs an ask for players game name and the health they want to play with
+//postcondition inputs userName and userHealth to main. 
+void playerInfo(string& playerName, double& playerHealth)
+{
+	cout << "Please enter your player name: ";
+	cin >> playerName;
+	//the code below allows the player to decide what health they will play with. 
+	//this gives them the ability to make the game easier or harder
+	cout << "Your health points decide how much attack power you have, and how hard the game will be. \n";
+	cout << "The less points you start with, the harder the game. \n";
+	cout << "How many points would you like to begin with 1-5,000? \n";
+	cin >> playerHealth;
+	return;
+}
+
+//precondition  this takes userName from main and inputs it
+//postcondition prints out a welcome message and a prompt for the user to begin the game.
+void printData(string userName)
+{
+	cout << "Welcome " << userName << " to the house. You are in the entrance hall, what will be your first move? \n";
+	return;
+}
+
+//precondition  this takes monsterHealth and attackAmount into function
+//postcondition this outputs the monsters health after attack amount has been dealt
+void monsterBattle(double& monsterHealth, double& attackAmount, double& userHealth, double& monsterAttack)
+{
+	monsterHealth = monsterHealth - attackAmount;
+	userHealth = userHealth - monsterAttack;
+	return;
+}
+
+//precondiiton  this takes the attack amount, monster health and user health into the function.
+//postcondition this outputs whether the player continues to play or whether the game is over. 
+int monsterBattle(float monsterHealth, int attackAmount, int userHealth)
+{
+	if (monsterHealth <= 0)
+	{
+		cout << "***YOU WON!***You have bested the beast and lived to fight another day!*** \n";
+		cout << " \n";
+		cout << "It's time to decide if you're ready for the next game. \n";
+	}
+	else if (userHealth >= monsterHealth)
+	{
+		cout << "You have attacked the beast, and they have fled to a new room. \n";
+	}
+	else if (userHealth < monsterHealth)
+	{
+		userHealth = userHealth - attackAmount;
+		cout << "The monster has bested you this time, be careful moving forward \n";
+		cout << " \n";
+	}
+	else if (userHealth <= 0)
+	{
+		cout << "RRRRRRRRRRRRRR               IIIIIIIIIIIIIIIIIII         PPPPPPPPPPPPPPPPPP      \n";
+		cout << "RR           RR                       II                  PP               PP    \n";
+		cout << "RR          RR                        II                  PP                PP   \n";
+		cout << "RR        RR                          II                  PP                PP   \n";
+		cout << "RR      RR                            II                  PP               PP    \n";
+		cout << "RR    RR                              II                  PP              PP     \n";
+		cout << "RR  RR                                II                  PP PPPPPPPPPPPPP       \n";
+		cout << "RRRR                                  II                  PP                     \n";
+		cout << "RR RR                                 II                  PP                     \n";
+		cout << "RR  RR                                II                  PP                     \n";
+		cout << "RR   RR                               II                  PP                     \n";
+		cout << "RR    RR                              II                  PP                     \n";
+		cout << "RR     RR                             II                  PP                     \n";
+		cout << "RR      RR                            II                  PP                     \n";
+		cout << "RR       RR                   IIIIIIIIIIIIIIIIIII         PP                     \n";
+		cout << "The monster has attacked and killed you. \n";
+	}
+	cout << "The monster's health is now at: " << monsterHealth << " and your health is now at: " << userHealth << endl;
+	return monsterHealth, userHealth;
+}
+
+//precondition  this is called in main when the monster is in the same room as the player
+//postcondition a monster made of different characters is printed out on the screen
+void printSomething(char monsterThing)
+{
+	cout << "                           \n";
+	cout << "                  ||       \n";
+	cout << "    ____ (((+))) _||_      \n";
+	cout << "   /.--.l  .-.  /.||.l     \n";
+	cout << "  /.,   ll(0.0)// || ll    \n";
+	cout << " /;` ;A  ll|m|//  || ;l    \n";
+	cout << " |:   ll__`:`____||__:|    \n";
+	cout << " |:    l__TTT (@~)(~@)|    \n";
+	cout << " |:    _/|    |l_l/  :|    \n";
+	cout << " |:   /  |    |  l   :|    \n";
+	cout << " |'  /   |    |   l  '|    \n";
+	cout << "  l_/    |    |    l_/     \n";
+	cout << "         |     |           \n";
+	cout << "         |_____|           \n";
+	cout << "         |_____|           \n";
+	return;
+}
